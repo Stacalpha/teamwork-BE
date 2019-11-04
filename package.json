@@ -1,0 +1,25 @@
+{
+  "name": "teamwork-BE",
+  "version": "1.0.0",
+  "description": "Backend for Teamwork application. Capstone project for DevC training with Andela.",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint . "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stacalpha/teamwork-BE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stacalpha/teamwork-BE/issues"
+  },
+  "homepage": "https://github.com/Stacalpha/teamwork-BE#readme",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}

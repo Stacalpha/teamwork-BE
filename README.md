@@ -1,4 +1,5 @@
 [![Coverage Status](https://coveralls.io/repos/github/Stacalpha/teamwork-app/badge.svg?branch=develop)](https://coveralls.io/github/Stacalpha/teamwork-app?branch=develop)
+[![Build Status](https://travis-ci.com/Stacalpha/teamwork-BE.svg?branch=develop)](https://travis-ci.com/Stacalpha/teamwork-BE)
 
 # teamwork-BE
 Backend for Teamwork application. Capstone project for DevC training with Andela.

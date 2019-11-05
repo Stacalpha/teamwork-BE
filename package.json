@@ -4,7 +4,7 @@
   "description": "Backend for Teamwork application. Capstone project for DevC training with Andela.",
   "main": "index.js",
   "scripts": {
-    "test": "eslint . "
+    "test": "eslint . && jasmine"
   },
   "repository": {
     "type": "git",
@@ -18,8 +18,15 @@
   },
   "homepage": "https://github.com/Stacalpha/teamwork-BE#readme",
   "devDependencies": {
+    "coveralls": "^3.0.7",
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2"
+    "eslint-plugin-import": "^2.18.2",
+    "jasmine": "^3.5.0"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
   }
 }

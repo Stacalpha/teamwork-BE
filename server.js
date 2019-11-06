@@ -1,35 +1,25 @@
 const { DATABASE_URL } = require('./constants/constants');
 const pg = require("pg");
-
 const express = require('express');
+const dbScripts = require('./database/db');
+
 const app = express();
  
 app.get('/', async (req, res)=> {
 	const pool = new pg.Pool({ connectionString: DATABASE_URL });
-	
-		// you can also use async/await
-	const result = await pool.query('SELECT NOW()').catch((err)=> {
-		console.log("not able to get connection " + err);
-		res.status(400).send(err);
-	});
-	res.status(200).json(result);
 
-	await pool.end();
-
-	const client = new pg.Client({ connectionString: DATABASE_URL });
-	client.connect();
-
-	client.query('SELECT NOW()', (err, result) => {
-		if(err){
-				console.log("not able to get connection "+ err);
-				res.status(400).send(err);
-		}
-
-		res.status(200).json(result);
-		client.end()
-	})
+	pool.query(dbScripts.reset)
+		.then(async (result)=> {
+			console.log(result);
+			await pool.query(dbScripts.init);
+			result = await pool.query('SELECT * FROM "Employees"');
+			res.status(201).json(result.rows);
+		})
+		.catch((err)=> {
+			console.log("not able to get connection " + err);
+			res.status(400).send(`${err}`);
+		})
+		.finally(()=> pool.end());
 });
  
-app.listen(4000, function () {
-    console.log('Server is running.. on Port 4000');
-});
+app.listen(4000, ()=>	console.log('Server is running.. on Port 4000'));

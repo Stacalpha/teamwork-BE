@@ -1,6 +1,3 @@
--- *************** SqlDBM: PostgreSQL ****************;
--- ***************************************************;
-
 DROP TABLE IF EXISTS "RedFlags";
 DROP TABLE IF EXISTS "Comments";
 DROP TABLE IF EXISTS "Posts";

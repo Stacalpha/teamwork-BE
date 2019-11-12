@@ -1,14 +1,16 @@
-const welcome = (req, res)=> {
-	res.status(200).json({
-		success: true,
-		message: "You've reached the root route. React app is served here."
-	});
-}
+const createNewUser = require('../controllers/user-controllers/user-controller');
 
-const initRoutes = (app)=> {
-	app.get('/', welcome);
+const welcome = (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "You've reached the root route. React app is served here.",
+  });
+};
 
-	app.post('/auth/create-user', createNewUser);
+const initRoutes = (app) => {
+  app.get('/', welcome);
+
+  app.post('/auth/create-user', createNewUser);
 };
 
 module.exports = initRoutes;

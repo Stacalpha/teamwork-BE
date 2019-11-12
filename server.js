@@ -1,9 +1,15 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const createNewUser = require('./controllers/user-controllers/user-controller');
+// const jwt = require('jsonwebtoken');
+const initRoutes = require('./routes/routes');
+const responseSender = require('./utils/response-sender');
 
 const app = express();
 
 app.use(express.json());
- 
-app.listen(4000, ()=>	console.log('Server is running.. on Port 4000'));
+
+app.use(responseSender);
+
+initRoutes(app);
+
+// eslint-disable-next-line no-console
+app.listen(4000, () => console.log('Server is running.. on Port 4000'));

@@ -6,21 +6,24 @@ DROP TABLE IF EXISTS "Employees";
 -- ************************************** "Employees"
 CREATE TABLE "Employees"
 (
--- "id"       uuid NOT NULL,
- "username" varchar(20) NOT NULL, --  PRIMARY KEY
- "name"     varchar(50) NOT NULL,
- "isAdmin"  boolean NOT NULL,
- "email"    varchar(320) NOT NULL UNIQUE,
- "password" varchar(64) NOT NULL
+ "id"           uuid NOT NULL,
+ "isAdmin"      boolean DEFAULT false,
+ "firstName"    varchar(50) NOT NULL, --  PRIMARY KEY
+ "lastName"     varchar(50) NOT NULL,
+ "email"        varchar(320) NOT NULL UNIQUE,
+ "password"     varchar(64) NOT NULL,
+ "gender"       varchar(10),
+ "jobRole"      varchar(50) NOT NULL,
+ "department"   varchar(50) NOT NULL,
+ "address"      varchar NOT NULL
 );
 
 CREATE UNIQUE INDEX "PK_Employees" ON "Employees"
 (
- "username"
+ "id"
 );
 
 -- ************************************** "Posts"
-
 CREATE TABLE "Posts"
 (
  "id"          uuid NOT NULL,

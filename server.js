@@ -1,16 +1,18 @@
-const pg = require("pg");
 const express = require('express');
-
-const { DATABASE_URL } = require('./constants/constants');
-const dbQueries = require('./database/queries');
+const jwt = require('jsonwebtoken');
+const createNewUser = require('./controllers/user-controllers/user-controller');
 
 const app = express();
 
 app.use(express.json());
- 
-app.get('/', async (req, res)=> {
-	const pool = new pg.Pool({ connectionString: DATABASE_URL });
 
+app.get('/', (req, res)=> {
+	res.status(200).json({
+		success: true,
+		message: "You've reached the root route. React app is served here."
+	});
 });
+
+app.post('/auth/create-user', createNewUser);
  
 app.listen(4000, ()=>	console.log('Server is running.. on Port 4000'));

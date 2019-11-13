@@ -9,9 +9,12 @@ const initTables = require('./init-tables');
 const pool = new pg.Pool({ connectionString: DATABASE_URL });
 
 pool.query(resetTables)
-  .then(async (result) => {
-    console.log(result);
+  .then(async (results) => {
+    // @ts-ignore
+    console.log(results.map((result) => result.command));
+    //
     await pool.query(initTables);
+    //
     const employees = (await pool.query('SELECT * FROM "Employees"')).rows;
     console.log(employees);
   })

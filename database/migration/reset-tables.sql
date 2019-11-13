@@ -30,9 +30,9 @@ CREATE TABLE "Posts"
  "title"       varchar(50) NOT NULL,
  "body"        varchar(50) NOT NULL,
  "dateCreated" timestamp NOT NULL,
- "author"      varchar(50) NOT NULL,
+ "author"      uuid NOT NULL,
  "type"        varchar(50) NOT NULL,
- CONSTRAINT "FK_16" FOREIGN KEY ( "author" ) REFERENCES "Employees" ( "username" )
+ CONSTRAINT "FK_16" FOREIGN KEY ( "author" ) REFERENCES "Employees" ( "id" )
 );
 
 CREATE UNIQUE INDEX "PK_Posts" ON "Posts"
@@ -51,11 +51,11 @@ CREATE TABLE "Comments"
 (
  "id"          uuid NOT NULL,
  "post"        uuid NOT NULL,
- "author"      varchar(50) NOT NULL,
+ "author"      uuid NOT NULL,
  "dateCreated" timestamp NOT NULL,
  "body"        varchar(50) NOT NULL,
  CONSTRAINT "FK_26" FOREIGN KEY ( "post" ) REFERENCES "Posts" ( "id" ),
- CONSTRAINT "FK_29" FOREIGN KEY ( "author" ) REFERENCES "Employees" ( "username" )
+ CONSTRAINT "FK_29" FOREIGN KEY ( "author" ) REFERENCES "Employees" ( "id" )
 );
 
 CREATE UNIQUE INDEX "PK_Comments" ON "Comments"
@@ -74,7 +74,6 @@ CREATE INDEX "fkIdx_29" ON "Comments"
 );
 
 -- ************************************** "RedFlags"
-
 CREATE TABLE "RedFlags"
 (
  "id"          uuid NOT NULL,
@@ -82,9 +81,9 @@ CREATE TABLE "RedFlags"
  "post"        uuid NULL,
  "comment"     uuid NULL,
  "dateFlagged" timestamp NOT NULL,
- "flaggedBy"   varchar(50) NOT NULL,
+ "flaggedBy"   uuid NOT NULL,
  CONSTRAINT "FK_36" FOREIGN KEY ( "post" ) REFERENCES "Posts" ( "id" ),
- CONSTRAINT "FK_40" FOREIGN KEY ( "flaggedBy" ) REFERENCES "Employees" ( "username" ),
+ CONSTRAINT "FK_40" FOREIGN KEY ( "flaggedBy" ) REFERENCES "Employees" ( "id" ),
  CONSTRAINT "FK_53" FOREIGN KEY ( "comment" ) REFERENCES "Comments" ( "id" )
 );
 

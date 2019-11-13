@@ -9,14 +9,14 @@ VALUES
 	('791224b6-9894-11e5-be38-001d42e8ef31', true, 'Feranmi', 'Akinlade', 'feranmiakinlade@gmail.com', 'password', 'female', 'Frontend Engineer', 'Frontend', '2, random street, some area, Lagos.');
 
 -- ************************************** "Posts"
--- "id" uuid, "title" varchar(50), "body" varchar(500), "dateCreated" NOW()::timestamp, "author" varchar(20), "type" varchar(50).
+-- "id" uuid, "title" varchar(50), "body" varchar(500), "dateCreated" NOW()::timestamp, "author" uuid, "type" varchar(50).
 INSERT INTO "Posts" ("id", "title", "body", "dateCreated", "author", "type")
 VALUES ('972124b6-9894-11e5-be38-001d42e813fe', 'title', 'body', NOW()::timestamp, '791224b6-9894-11e5-be38-001d42e8ef31', 'gif'),
 			 ('972124b6-9894-11e5-be38-001d42e813af', 'title', 'body', NOW()::timestamp, '127924b6-9894-11e5-be38-001d42efa318', 'gif'),
 			 ('792124b6-9894-11e5-be38-001d42e813fe', 'title', 'body', NOW()::timestamp, '4b679212-9894-11e5-be38-001d423fee81', 'article');
 
 -- ************************************** "Comments"
--- "id" uuid, "post" uuid, "author" varchar(20), "dateCreated" NOW()::timestamp, "body" varchar(250)
+-- "id" uuid, "post" uuid, "author" uuid, "dateCreated" NOW()::timestamp, "body" varchar(250)
 INSERT INTO "Comments" ("id", "post", "author", "dateCreated", "body")
 VALUES ('972124b6-1245-11e5-be38-001d42e813fe', '972124b6-9894-11e5-be38-001d42e813fe', '791224b6-9894-11e5-be38-001d42e8ef31', NOW()::timestamp, 'body'),
 			 ('802124b6-9894-11e5-be38-001d42e813fe', '972124b6-9894-11e5-be38-001d42e813af', '127924b6-9894-11e5-be38-001d42efa318', NOW()::timestamp, 'body'),

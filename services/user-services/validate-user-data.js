@@ -19,7 +19,7 @@ const userDataIsValid = (userData) => {
 
     return false;
   } catch (err) {
-    console.log(err);
+    console.log('Caught ', err);
     return false;
   }
 };

@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 const request = require('request');
+
 const deleteUser = require('../setup/users/create-user.setup');
+const { PORT, HOST } = require('../../constants/constants');
 
 const newUserData = {
   firstName: 'Shay',
@@ -18,7 +20,7 @@ const invalidUserData = {
   email: null,
 };
 
-const baseUrl = 'http://localhost:4000';
+const baseUrl = `http://${HOST}:${PORT}`;
 
 const reqOptions = {
   baseUrl,

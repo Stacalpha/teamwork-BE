@@ -6,6 +6,6 @@
 		"allowSyntheticDefaultImports": true,
 		"checkJs": true
   },
-	"exclude": ["dist"],
+	"exclude": ["dist", "node_modules"],
 	"allowJs": true
 }

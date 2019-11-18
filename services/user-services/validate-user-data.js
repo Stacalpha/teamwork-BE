@@ -4,8 +4,6 @@ const userDataIsValid = (userData) => {
       firstName, lastName, email, password, gender, jobRole, department, address,
     } = userData;
 
-    console.log(userData);
-
     if (
       firstName.length > 1
       && lastName.length > 1
@@ -19,7 +17,7 @@ const userDataIsValid = (userData) => {
 
     return false;
   } catch (err) {
-    console.log('Caught ', err);
+    // console.log('\tCaught ', err.message, 'in userDataIsValid(userData).');
     return false;
   }
 };

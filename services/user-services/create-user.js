@@ -18,8 +18,6 @@ const createUser = async (userData) => {
     firstName, lastName, email, password, gender, jobRole, department, address,
   } = userData;
 
-  console.log(userData);
-
   const id = uuid();
   const userDataArray = [
     id, firstName, lastName, email, password, gender, jobRole, department, address,
@@ -28,7 +26,6 @@ const createUser = async (userData) => {
   await pool.query(createUserQuery, userDataArray);
   const [newUser] = (await pool.query(getUserQuery, [id, email])).rows;
 
-  console.log(newUser);
   return newUser;
 };
 

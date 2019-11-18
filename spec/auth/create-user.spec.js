@@ -2,7 +2,7 @@
 const request = require('request');
 
 const deleteUser = require('../setup/users/create-user.setup');
-const { PORT, HOST } = require('../../constants/constants');
+const server = require('../../server');
 
 const newUserData = {
   firstName: 'Shay',
@@ -20,7 +20,7 @@ const invalidUserData = {
   email: null,
 };
 
-const baseUrl = `http://${HOST}:${PORT}`;
+const baseUrl = `http://${server.host}:${server.port}`;
 
 const reqOptions = {
   baseUrl,
@@ -35,12 +35,14 @@ const badReqOptions = {
   body: invalidUserData,
 };
 
-beforeEach(async () => {
-  const { command, rowCount } = await deleteUser(newUserData.email);
-  console.log('\nPOST auth/create-user\n\t', { command, rowCount });
-});
-
 describe('POST auth/create-user', () => {
+  beforeEach(async () => {
+    const { command, rowCount } = await deleteUser(newUserData.email);
+    console.log('\nPOST auth/create-user\n\t', { command, rowCount });
+  });
+  
+  afterAll(() => server.close());
+
   it('should create a new user in the database, and respond with the new user data', (done) => {
     request(reqOptions, (error, res, body) => {
       console.log(error || '');
@@ -56,7 +58,7 @@ describe('POST auth/create-user', () => {
       expect(res.statusCode).toBe(400);
       expect(body.status).toBe('error');
       expect(body.error).toBeDefined();
-      console.log('\t', body.error);
+      // console.log('\t', body.error);
       done();
     });
   });

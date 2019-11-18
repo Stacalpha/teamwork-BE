@@ -5,7 +5,7 @@ const express = require('express');
 
 const initRoutes = require('./routes/routes');
 const responseSender = require('./utils/response-sender');
-const { PORT, HOST } = require('./constants/constants');
+const { PORT = 4000, HOST = 'localhost' } = require('./constants/constants');
 
 const app = express();
 

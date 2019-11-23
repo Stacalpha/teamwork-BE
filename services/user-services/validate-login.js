@@ -17,6 +17,8 @@ const validateLogin = async (email, password) => {
     await pool.query(validateLoginQuery, [email, password])
   ).rows;
 
+  if (user) delete user.password;
+
   console.log(user);
   return user;
 };

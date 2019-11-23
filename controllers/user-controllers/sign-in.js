@@ -24,7 +24,7 @@ const signIn = async (req, res) => {
   const token = jwt.sign(user, JWT_SECRET, { expiresIn: '24000h' });
 
   // return the JWT token for the future API calls
-  return res.sendData(201, { token, userId: user.userId });
+  return res.sendData(201, { token, userId: user.id });
 };
 
 module.exports = signIn;

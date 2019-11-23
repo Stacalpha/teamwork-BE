@@ -7,12 +7,14 @@ const { validateLogin } = require('../../services/user-services/user-service');
 
 const signIn = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password);
 
   const user = await validateLogin(email, password)
     .catch((error) => console.log(error));
+    console.log(user);
 
   if (user === false) { // Not undefined, but explicitly set to false.
-    return res.sendError(400, 'Invalid email or password.');
+    return res.sendError(404, 'Invalid email or password.');
   };
 
   if (!user) { // Undefined

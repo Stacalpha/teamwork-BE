@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 
 const express = require('express');
-// const jwt = require('jsonwebtoken');
 
 const initRoutes = require('./routes/routes');
-const responseSender = require('./utils/response-sender');
+const { responseSender, tokenChecker } = require('./utils/utils');
 const { PORT = 4000, HOST = 'localhost' } = require('./constants/constants');
 
 const app = express();
@@ -12,6 +11,7 @@ const app = express();
 app.use(express.json());
 
 app.use(responseSender);
+app.use(tokenChecker);
 
 initRoutes(app);
 

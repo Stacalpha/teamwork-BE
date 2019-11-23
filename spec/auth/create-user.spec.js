@@ -36,9 +36,11 @@ const badReqOptions = {
 };
 
 describe('POST auth/create-user', () => {
+  beforeAll(()=> console.log('\nPOST auth/create-user\n'));
+  
   beforeEach(async () => {
     const { command, rowCount } = await deleteUser(newUserData.email);
-    console.log('\nPOST auth/create-user\n\t', { command, rowCount });
+    console.log('\t', { command, rowCount });
   });
   
   afterAll(() => server.close());

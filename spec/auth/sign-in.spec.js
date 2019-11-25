@@ -35,13 +35,12 @@ describe('POST auth/signin', () => {
   beforeEach(async () => {
     console.log('\n  ', 'Next spec');
   });
-  
-  // afterAll(() => server.close());
 
   it('verify credentails and respond with token and user id.', (done) => {
     request(reqOptions, (error, res, body) => {
       console.log(error || '');
       expect(res.statusCode).toBe(200);
+      expect(body.status).toBe('success');
       expect(body.data.userId).toBeDefined();
       expect(body.data.token).toBeDefined();
       done();

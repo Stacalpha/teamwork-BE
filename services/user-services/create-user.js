@@ -27,6 +27,7 @@ const createUser = async (userData) => {
   await pool.query(createUserQuery, userDataArray);
   const [newUser] = (await pool.query(getUserQuery, [id, email])).rows;
 
+  delete newUser.password;
   return newUser;
 };
 

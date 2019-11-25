@@ -26,8 +26,7 @@ const reqOptions = {
   method: 'POST',
   body: newUserData,
   headers: {
-    // eslint-disable-next-line quote-props
-    'Authorization': `Bearer ${adminToken}`,
+    token: adminToken,
   },
   json: true,
 };
@@ -41,7 +40,7 @@ const reqOptionsBadAuth = {
   ...reqOptions,
   headers: {
     // eslint-disable-next-line quote-props
-    'Authorization': `Bearer ${userToken}`,
+    token: userToken,
   },
 };
 
@@ -57,14 +56,15 @@ describe('POST auth/create-user', () => {
     const { command, rowCount } = await deleteUser(newUserData.email);
     console.log('\n  ', { command, rowCount });
   });
-  
-  // afterAll(() => server.close());
 
   it('should create a user and respond with the new user data', (done) => {
     request(reqOptions, (error, res, body) => {
       console.log(error || '');
       expect(res.statusCode).toBe(201);
-      expect(body.data.id).toBeDefined();
+      expect(body.status).toBe('success');
+      expect(body.data.userId).toBeDefined();
+      expect(body.data.token).toBeDefined();
+      expect(body.data.message).toBeDefined();
       done();
     });
   });
@@ -75,7 +75,6 @@ describe('POST auth/create-user', () => {
       expect(res.statusCode).toBe(400);
       expect(body.status).toBe('error');
       expect(body.error).toBeDefined();
-      // console.log('\t', body.error);
       done();
     });
   });
@@ -86,7 +85,6 @@ describe('POST auth/create-user', () => {
       expect(res.statusCode).toBe(403);
       expect(body.status).toBe('error');
       expect(body.error).toBeDefined();
-      // console.log('\t', body.error);
       done();
     });
   });

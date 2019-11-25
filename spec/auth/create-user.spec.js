@@ -2,8 +2,10 @@
 const request = require('request');
 
 const deleteUser = require('../setup/users/create-user.setup');
-const server = require('../../server');
 const { TEST_USER_TOKEN: userToken, TEST_ADMIN_TOKEN: adminToken } = require('../../constants/constants');
+
+const { PORT = 4000, HOST = 'localhost' } = require('../../constants/constants');
+const server = require('../../server');
 
 const newUserData = {
   firstName: 'Shay',
@@ -16,7 +18,7 @@ const newUserData = {
   address: '22, Richmond drive',
 }; 
 
-const baseUrl = `http://${server.host}:${server.port}`;
+const baseUrl = `http://${HOST}:${PORT}`;
 
 const reqOptions = {
   baseUrl,
@@ -44,14 +46,19 @@ const reqOptionsBadAuth = {
 };
 
 describe('POST auth/create-user', () => {
-  beforeAll(() => console.log('\nPOST auth/create-user'));
+  beforeAll(() => {
+    if (!server.listening) {
+      server.listen(PORT, () => console.log(`Server is running.. on Port ${PORT}`));
+    }
+    console.log('\nPOST auth/create-user');
+  });
   
   beforeEach(async () => {
     const { command, rowCount } = await deleteUser(newUserData.email);
     console.log('\n  ', { command, rowCount });
   });
   
-  afterAll(() => server.close());
+  // afterAll(() => server.close());
 
   it('should create a user and respond with the new user data', (done) => {
     request(reqOptions, (error, res, body) => {

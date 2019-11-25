@@ -12,7 +12,7 @@ const signIn = async (req, res) => {
     .catch((error) => console.log(error));
 
   if (user === false) { // Not undefined, but explicitly set to false.
-    return res.sendError(404, 'Invalid email or password.');
+    return res.sendError(400, 'Invalid email or password.');
   }
 
   if (!user) { // Undefined

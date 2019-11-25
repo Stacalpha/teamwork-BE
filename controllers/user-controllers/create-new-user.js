@@ -1,18 +1,18 @@
 /* eslint-disable no-console */
 
-const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require('../../constants/constants');
+// const jwt = require('jsonwebtoken');
+// const { JWT_SECRET } = require('../../constants/constants');
 
 const { createUser, userDataIsValid } = require('../../services/user-services/user-service');
 
 const createNewUser = async (req, res) => {
   if (!req.sender.isAdmin) {
-    return res.sendError(400, 'Only admin can create new user.');
-  };
+    return res.sendError(403, 'Only admin can create new user.');
+  }
 
   if (!userDataIsValid(req.body)) {
     return res.sendError(400, 'Invalid input data. Please check the documentation.');
-  };
+  }
 
   const user = await createUser(req.body)
     .catch((error) => {

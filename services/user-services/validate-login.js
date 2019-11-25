@@ -19,7 +19,6 @@ const validateLogin = async (email, password) => {
 
   if (user) delete user.password;
 
-  console.log(user);
   return user;
 };
 

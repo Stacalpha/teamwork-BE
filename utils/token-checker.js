@@ -5,6 +5,7 @@ const { JWT_SECRET } = require('../constants/constants');
 
 const tokenChecker = (req, res, next) => {
   // Express headers are auto converted to lowercase
+  // eslint-disable-next-line dot-notation
   let token = req.headers['x-access-token'] || req.headers['authorization'];
 
   if (!token) {
@@ -18,14 +19,12 @@ const tokenChecker = (req, res, next) => {
   }
 
   jwt.verify(token, JWT_SECRET, (err, data) => {
-    if (err) {
-      req.sender = false;
-      return next();
-    };
+    if (err) req.sender = false;
   
-    req.sender = data;
-    next();
+    else req.sender = data;
   });
+
+  return next();
 };
 
 module.exports = tokenChecker;

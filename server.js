@@ -17,10 +17,17 @@ initRoutes(app);
 
 const httpServer = app.listen(PORT, () => console.log(`Server is running.. on Port ${PORT}`));
 
+console.log('address():', httpServer.address());
+
 const server = { 
   close: httpServer.close.bind(httpServer), 
   port: PORT, 
   host: HOST,
 };
+
+httpServer.on('listening', () => {
+  console.log('listening event');
+  server.listening = true;
+});
 
 module.exports = server;

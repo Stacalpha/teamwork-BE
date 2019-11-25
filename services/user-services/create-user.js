@@ -11,7 +11,8 @@ const getUserQuery = require('../../database/users/get-user.sql.js');
 const pool = new pg.Pool({ connectionString: DATABASE_URL });
 
 /**
- * Sample JSDoc
+ * Create a new user.
+ * @param {object} userData The user data from the request body.
  */
 const createUser = async (userData) => {
   const {

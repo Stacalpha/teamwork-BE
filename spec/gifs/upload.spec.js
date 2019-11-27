@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const request = require('request');
 const fs = require('fs');
+const path = require('path');
 
 const { TEST_USER_TOKEN: userToken } = require('../../constants/constants');
 
@@ -13,7 +14,7 @@ const formData = {
   // Pass a simple key-value pair
   title: 'Sample Gif upload.',
   // Pass data via Streams
-  file: fs.createReadStream(__dirname + '/unicycle.jpg'),
+  file: fs.createReadStream(path.join(__dirname, 'sample1.gif')),
   // Pass multiple values /w an Array
   attachments: [
     fs.createReadStream(__dirname + '/attachment1.jpg'),

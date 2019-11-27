@@ -1,5 +1,6 @@
-// const cloudinary = require('cloudinary').v2;
-const formidable = require('formidable');
+const cloudinary = require('cloudinary').v2;
+    // res.write('GIF image successfully posted');
+
 const fs = require('fs');
 
 const getUploadedFile = (req, res) => {
@@ -12,11 +13,11 @@ const getUploadedFile = (req, res) => {
       //
       fs.rename(oldpath, newpath, (error) => {
         if (error) throw error;
-        res.write('File uploaded and moved!');
+        res.write('GIF image successfully posted');
         res.end();
       });
     });
-    //
+    // res.write('GIF image successfully posted');
   } else {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');

@@ -1,28 +1,16 @@
 /* eslint-disable no-console */
 const request = require('request');
 
-const deleteUser = require('../setup/users/create-user.setup');
-const { TEST_USER_TOKEN: userToken, TEST_ADMIN_TOKEN: adminToken } = require('../../constants/constants');
+const { TEST_USER_TOKEN: userToken } = require('../../constants/constants');
 
 const { PORT = 4000, HOST = 'localhost' } = require('../../constants/constants');
-const server = require('../../server');
-
-const newUserData = {
-  firstName: 'Shay',
-  lastName: 'Hawkgee',
-  email: 'kenedy@mail.com',
-  password: '123456',
-  gender: 'Female',
-  jobRole: 'Tester',
-  department: 'Quality Assurance',
-  address: '22, Richmond drive',
-}; 
+const server = require('../../server'); 
 
 const baseUrl = `http://${HOST}:${PORT}`;
 
 const reqOptions = {
   baseUrl,
-  uri: '/auth/create-user',
+  uri: '/gifs',
   method: 'POST',
   body: newUserData,
   headers: {
@@ -44,32 +32,33 @@ const reqOptionsBadAuth = {
   },
 };
 
-describe('POST /auth/create-user', () => {
+describe('POST /gifs', () => {
   beforeAll(() => {
     if (!server.listening) {
       server.listen(PORT, () => console.log(`Server is running.. on Port ${PORT}`));
     }
-    console.log('\nPOST /auth/create-user');
+    console.log('\nPOST /gifs');
   });
   
   beforeEach(async () => {
-    const { command, rowCount } = await deleteUser(newUserData.email);
-    console.log('\n  ', { command, rowCount });
+    console.log('\n  ', 'Next Spec');
   });
 
-  it('should create a user and respond with the new user data', (done) => {
+  it('should upload gif to cloudinary and respond with image url', (done) => {
     request(reqOptions, (error, res, body) => {
       console.log(error || '');
       expect(res.statusCode).toBe(201);
       expect(body.status).toBe('success');
-      expect(body.data.userId).toBeDefined();
-      expect(body.data.token).toBeDefined();
-      expect(body.data.message).toBe('User account successfully created');
+      expect(body.data.gifId).toBeDefined();
+      expect(body.data.imageUrl).toBeDefined();
+      expect(body.data.createdOn).toBeDefined();
+      expect(body.data.title).toBeDefined();
+      expect(body.data.message).toBe('GIF image successfully posted');
       done();
     });
   });
 
-  it('should respond with error (400) given invalid data in the request body', (done) => {
+  it('should respond with error (400) given unsupported image type', (done) => {
     request(badReqOptions, (error, res, body) => {
       console.log(error || '');
       expect(res.statusCode).toBe(400);
@@ -79,7 +68,7 @@ describe('POST /auth/create-user', () => {
     });
   });
 
-  it('should respond with error (403) for a non-admin user', (done) => {
+  it('should respond with error (403) for an unrecognized user (invalid token)', (done) => {
     request(reqOptionsBadAuth, (error, res, body) => {
       console.log(error || '');
       expect(res.statusCode).toBe(403);

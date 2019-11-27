@@ -12,7 +12,7 @@ const processIncomingFile = (req, res) => new Promise((resolve, reject) => {
     },
   });
   
-  const upload = multer({ storage }).single('gif-file');
+  const upload = multer({ storage }).single('file');
   
   upload(req, res, (err) => {
     if (err) {

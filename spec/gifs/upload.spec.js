@@ -15,42 +15,40 @@ const formData = {
   title: 'Sample Gif upload.',
   // Pass data via Streams
   file: fs.createReadStream(path.join(__dirname, 'sample1.gif')),
-  // Pass multiple values /w an Array
-  attachments: [
-    fs.createReadStream(__dirname + '/attachment1.jpg'),
-    fs.createReadStream(__dirname + '/attachment2.jpg')
-  ],
-  // Pass optional meta-data with an 'options' object with this shape:- {value: DATA, options: OPTIONS}
-  custom_file: {
-    value:  fs.createReadStream('/dev/urandom'),
-    options: {
-      filename: 'topsecret.jpg',
-      contentType: 'image/jpeg'
-    }
-  }
 };
 
 const reqOptions = {
   baseUrl,
   uri: '/gifs',
   method: 'POST',
-  formData: formData,
+  formData,
   headers: {
-    token: adminToken,
+    token: userToken,
   },
-  json: true,
-};
-
-const badReqOptions = {
-  ...reqOptions,
-  body: { ...newUserData, email: null },
 };
 
 const reqOptionsBadAuth = {
   ...reqOptions,
   headers: {
-    // eslint-disable-next-line quote-props
-    token: userToken,
+    token: 'invalid token',
+  },
+};
+
+const reqOptionsNoTitle = {
+  ...reqOptions,
+  formData: delete formData.title,
+};
+
+const reqOptionsNoFile = {
+  ...reqOptions,
+  formData: delete formData.file,
+};
+
+const reqOptionsWrongFile = {
+  ...reqOptions,
+  formData: {  
+    ...formData,
+    file: fs.createReadStream(path.join(__dirname, 'sample2.unsupported.png')),
   },
 };
 

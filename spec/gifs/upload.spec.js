@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const request = require('request');
+const fs = require('fs');
 
 const { TEST_USER_TOKEN: userToken } = require('../../constants/constants');
 
@@ -8,11 +9,31 @@ const server = require('../../server');
 
 const baseUrl = `http://${HOST}:${PORT}`;
 
+const formData = {
+  // Pass a simple key-value pair
+  title: 'Sample Gif upload.',
+  // Pass data via Streams
+  file: fs.createReadStream(__dirname + '/unicycle.jpg'),
+  // Pass multiple values /w an Array
+  attachments: [
+    fs.createReadStream(__dirname + '/attachment1.jpg'),
+    fs.createReadStream(__dirname + '/attachment2.jpg')
+  ],
+  // Pass optional meta-data with an 'options' object with this shape:- {value: DATA, options: OPTIONS}
+  custom_file: {
+    value:  fs.createReadStream('/dev/urandom'),
+    options: {
+      filename: 'topsecret.jpg',
+      contentType: 'image/jpeg'
+    }
+  }
+};
+
 const reqOptions = {
   baseUrl,
   uri: '/gifs',
   method: 'POST',
-  body: newUserData,
+  formData: formData,
   headers: {
     token: adminToken,
   },

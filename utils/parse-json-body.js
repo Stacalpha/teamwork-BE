@@ -3,8 +3,9 @@ const parseJsonBody = (express) => {
     console.log(req.headers['content-type']);
 
     if (req.headers['content-type'] !== 'multipart/formdata') {
-      const parser = express.json();
-      return parser(req, res, next);
+      const jsonParser = express.json();
+      jsonParser(req, res, next);
+      return;
     }
     next();
   };

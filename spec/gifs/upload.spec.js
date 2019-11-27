@@ -79,7 +79,29 @@ describe('POST /gifs', () => {
   });
 
   it('should respond with error (400) given unsupported image type', (done) => {
-    request(badReqOptions, (error, res, body) => {
+    request(reqOptionsWrongFile, (error, res, body) => {
+      console.log(error || '');
+      expect(res.statusCode).toBe(400);
+      expect(body.status).toBe('error');
+      expect(body.error).toBeDefined();
+      done();
+    });
+  });
+
+  it('should respond with error (400) if no title is supplied', (done) => {
+    // @ts-ignore
+    request(reqOptionsNoTitle, (error, res, body) => {
+      console.log(error || '');
+      expect(res.statusCode).toBe(400);
+      expect(body.status).toBe('error');
+      expect(body.error).toBeDefined();
+      done();
+    });
+  });
+
+  it('should respond with error (400) if no file is supplied', (done) => {
+    // @ts-ignore
+    request(reqOptionsNoFile, (error, res, body) => {
       console.log(error || '');
       expect(res.statusCode).toBe(400);
       expect(body.status).toBe('error');

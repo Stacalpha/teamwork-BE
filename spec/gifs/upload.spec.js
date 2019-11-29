@@ -66,7 +66,6 @@ describe('POST /gifs', () => {
     request(reqOptions, (error, res, rawBody) => {
       console.log(error || '');
       const body = JSON.parse(rawBody);
-      console.log('response body', body);
       expect(res.statusCode).toBe(201);
       expect(body.status).toBe('success');
       expect(body.data.gifId).toBeDefined();
@@ -82,7 +81,6 @@ describe('POST /gifs', () => {
     request(reqOptionsWrongFile, (error, res, rawBody) => {
       console.log(error || '');
       const body = JSON.parse(rawBody);
-      console.log('response body', body);
       expect(res.statusCode).toBe(400);
       expect(body.status).toBe('error');
       expect(body.error).toBeDefined();
@@ -94,7 +92,6 @@ describe('POST /gifs', () => {
     request(reqOptionsNoFile, (error, res, rawBody) => {
       console.log(error || '');
       const body = JSON.parse(rawBody);
-      console.log('response body', body);
       expect(res.statusCode).toBe(400);
       expect(body.status).toBe('error');
       expect(body.error).toBeDefined();
@@ -106,7 +103,6 @@ describe('POST /gifs', () => {
     request(reqOptionsBadAuth, (error, res, rawBody) => {
       console.log(error || '');
       const body = JSON.parse(rawBody);
-      console.log('response body', body);
       expect(res.statusCode).toBe(403);
       expect(body.status).toBe('error');
       expect(body.error).toBeDefined();

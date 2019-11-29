@@ -18,8 +18,6 @@ const saveGif = (filePath) => new Promise((resolve, reject) => {
       return;
     }
 
-    console.log('file uploaded to Cloudinary');
-
     // Remove file from server
     fs.unlinkSync(filePath);
 

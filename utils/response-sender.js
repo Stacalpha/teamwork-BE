@@ -13,7 +13,6 @@ const responseSender = (req, res, next) => {
       error: message,
     };
     //
-    console.log(response);
     res.status(code).json(response);
   };
 

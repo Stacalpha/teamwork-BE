@@ -17,7 +17,6 @@ const userDataIsValid = (userData) => {
 
     return false;
   } catch (err) {
-    // console.log('\tCaught ', err.message, 'in userDataIsValid(userData).');
     return false;
   }
 };

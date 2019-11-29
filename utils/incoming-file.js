@@ -2,6 +2,7 @@ const multer = require('multer');
 const path = require('path');
 
 const processIncomingFile = (req, res) => new Promise((resolve, reject) => {
+  console.log('processIncomingFile(req, res) called.');
   const storage = multer.diskStorage({
     destination: path.join(__dirname, 'uploads'),
     filename: (_req, file, callback) => {
@@ -11,16 +12,20 @@ const processIncomingFile = (req, res) => new Promise((resolve, reject) => {
       callback(null, `${file.originalname}_${Date.now()}${fileExt}`);
     },
   });
-  
+
+  console.log('storage assigned', storage);
   const upload = multer({ storage }).single('file');
+  console.log('upload function:\n', upload);
   
   upload(req, res, (err) => {
-    if (err) {
+    console.log(req.file, '\tand\t', req.body);
+    if (!err) resolve(); 
+    else {
       console.log(err);
       reject(err);
-    }
-    
-    resolve();
+    }  
+
+    console.log('settled.');
   });
 });
 

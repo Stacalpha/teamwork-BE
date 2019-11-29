@@ -13,7 +13,10 @@ const saveGif = (filePath) => new Promise((resolve, reject) => {
   };
 
   cloudinary.uploader.upload(filePath, uploadOptions, (err, image) => {
-    if (err) reject(err);
+    if (err) {
+      reject(err);
+      return;
+    }
 
     console.log('file uploaded to Cloudinary');
 

@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 const pg = require('pg');
 const { DATABASE_URL } = require('../../constants/constants');
 
@@ -7,6 +6,7 @@ const resetTables = require('./reset-tables');
 const initTables = require('./init-tables');
 
 const pool = new pg.Pool({ connectionString: DATABASE_URL });
+console.log(DATABASE_URL);
 
 pool.query(resetTables)
   .then(async (results) => {

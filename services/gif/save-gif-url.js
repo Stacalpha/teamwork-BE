@@ -3,13 +3,16 @@ const pg = require('pg');
 const uuid = require('uuid/v4');
 
 const { DATABASE_URL } = require('../../constants/constants');
-const createPostQuery = require('../../database/queries');
+const { createPostQuery } = require('../../database/queries');
 
 const pool = new pg.Pool({ connectionString: DATABASE_URL });
 
 const saveGifMetadata = async (author, title, imageUrl) => {
   const id = uuid();
-  const dateCreated = Date.now();
+
+  // eslint-disable-next-line
+  // Convert ECMAScript epoch to UNIX epoch (i.e in seconds, Date.now returns milliseconds since UNIX epoch).
+  const dateCreated = Math.round(Date.now() / 1000);
 
   const postData = [id, title, imageUrl, dateCreated, author, 'gif'];
 

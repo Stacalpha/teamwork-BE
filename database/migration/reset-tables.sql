@@ -27,9 +27,9 @@ CREATE UNIQUE INDEX "PK_Employees" ON "Employees"
 CREATE TABLE "Posts"
 (
  "id"          uuid NOT NULL,
- "title"       varchar(50) NOT NULL,
- "body"        varchar(50) NOT NULL,
- "dateCreated" timestamp NOT NULL,
+ "title"       varchar(100) NOT NULL,
+ "body"        varchar NOT NULL,
+ "dateCreated" BIGINT NOT NULL,
  "author"      uuid NOT NULL,
  "type"        varchar(50) NOT NULL,
  CONSTRAINT "FK_16" FOREIGN KEY ( "author" ) REFERENCES "Employees" ( "id" )
@@ -52,8 +52,8 @@ CREATE TABLE "Comments"
  "id"          uuid NOT NULL,
  "post"        uuid NOT NULL,
  "author"      uuid NOT NULL,
- "dateCreated" timestamp NOT NULL,
- "body"        varchar(50) NOT NULL,
+ "dateCreated" BIGINT NOT NULL,
+ "body"        varchar NOT NULL,
  CONSTRAINT "FK_26" FOREIGN KEY ( "post" ) REFERENCES "Posts" ( "id" ),
  CONSTRAINT "FK_29" FOREIGN KEY ( "author" ) REFERENCES "Employees" ( "id" )
 );
@@ -80,7 +80,7 @@ CREATE TABLE "RedFlags"
  "targetType"  varchar(50) NOT NULL,
  "post"        uuid NULL,
  "comment"     uuid NULL,
- "dateFlagged" timestamp NOT NULL,
+ "dateFlagged" BIGINT NOT NULL,
  "flaggedBy"   uuid NOT NULL,
  CONSTRAINT "FK_36" FOREIGN KEY ( "post" ) REFERENCES "Posts" ( "id" ),
  CONSTRAINT "FK_40" FOREIGN KEY ( "flaggedBy" ) REFERENCES "Employees" ( "id" ),

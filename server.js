@@ -15,6 +15,12 @@ app.use(tokenChecker);
 
 initRoutes(app);
 
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  console.log('Error delegated to express.', err);
+  res.sendError(500, 'Unknown error.');
+});
+
 const server = app.listen(PORT, () => console.log(`Server is running.. on Port ${PORT}`));
 
 module.exports = server;

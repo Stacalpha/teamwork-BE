@@ -34,14 +34,12 @@ const reqOptionsBadAuth = {
   },
 };
 
-const reqOptionsNoTitle = {
-  ...reqOptions,
-  formData: delete formData.title,
-};
-
 const reqOptionsNoFile = {
   ...reqOptions,
-  formData: delete formData.file,
+  formData: {
+    ...formData,
+    file: '',
+  },
 };
 
 const reqOptionsWrongFile = {
@@ -65,8 +63,10 @@ describe('POST /gifs', () => {
   });
 
   it('should upload gif to cloudinary and respond with image url', (done) => {
-    request(reqOptions, (error, res, body) => {
+    request(reqOptions, (error, res, rawBody) => {
       console.log(error || '');
+      const body = JSON.parse(rawBody);
+      console.log('response body', body);
       expect(res.statusCode).toBe(201);
       expect(body.status).toBe('success');
       expect(body.data.gifId).toBeDefined();
@@ -79,19 +79,10 @@ describe('POST /gifs', () => {
   });
 
   it('should respond with error (400) given unsupported image type', (done) => {
-    request(reqOptionsWrongFile, (error, res, body) => {
+    request(reqOptionsWrongFile, (error, res, rawBody) => {
       console.log(error || '');
-      expect(res.statusCode).toBe(400);
-      expect(body.status).toBe('error');
-      expect(body.error).toBeDefined();
-      done();
-    });
-  });
-
-  it('should respond with error (400) if no title is supplied', (done) => {
-    // @ts-ignore
-    request(reqOptionsNoTitle, (error, res, body) => {
-      console.log(error || '');
+      const body = JSON.parse(rawBody);
+      console.log('response body', body);
       expect(res.statusCode).toBe(400);
       expect(body.status).toBe('error');
       expect(body.error).toBeDefined();
@@ -100,9 +91,10 @@ describe('POST /gifs', () => {
   });
 
   it('should respond with error (400) if no file is supplied', (done) => {
-    // @ts-ignore
-    request(reqOptionsNoFile, (error, res, body) => {
+    request(reqOptionsNoFile, (error, res, rawBody) => {
       console.log(error || '');
+      const body = JSON.parse(rawBody);
+      console.log('response body', body);
       expect(res.statusCode).toBe(400);
       expect(body.status).toBe('error');
       expect(body.error).toBeDefined();
@@ -111,8 +103,10 @@ describe('POST /gifs', () => {
   });
 
   it('should respond with error (403) for an unrecognized user (invalid token)', (done) => {
-    request(reqOptionsBadAuth, (error, res, body) => {
+    request(reqOptionsBadAuth, (error, res, rawBody) => {
       console.log(error || '');
+      const body = JSON.parse(rawBody);
+      console.log('response body', body);
       expect(res.statusCode).toBe(403);
       expect(body.status).toBe('error');
       expect(body.error).toBeDefined();
